@@ -1,0 +1,15 @@
+{
+  "name": "mcp-servers-workspace",
+  "private": true,
+  "type": "module",
+  "description": "npm workspace root for all custom MCP servers. Hoists @modelcontextprotocol/sdk so shared and consumer packages resolve to the same install.",
+  "workspaces": [
+    "mcp-server-shared",
+    "*-mcp-server"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "watch": "npm run watch --workspaces --if-present",
+    "clean": "rm -rf */node_modules */dist node_modules"
+  }
+}

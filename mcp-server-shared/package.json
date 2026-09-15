@@ -1,0 +1,32 @@
+{
+  "name": "@geoffmyers/mcp-server-shared",
+  "version": "1.0.0",
+  "description": "Shared utilities for CLI-based MCP servers",
+  "license": "MIT",
+  "author": "Geoff Myers",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "watch": "tsc --watch"
+  },
+  "peerDependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.2",
+    "zod": "^3.25.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "zod-to-json-schema": "^3.23.5"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.2",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "typescript": "^5.6.2",
+    "zod": "^3.25.0"
+  }
+}

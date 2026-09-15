@@ -1,0 +1,32 @@
+{
+  "name": "@geoffmyers/mcp-server-portainer",
+  "version": "1.0.0",
+  "description": "MCP server for Portainer CE/EE REST API",
+  "license": "MIT",
+  "author": "Geoff Myers",
+  "type": "module",
+  "bin": {
+    "mcp-server-portainer": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && shx mkdir -p dist/docs && shx cp -r docs/* dist/docs/ && shx chmod +x dist/index.js",
+    "watch": "tsc --watch",
+    "start:stdio": "node dist/index.js stdio",
+    "start:streamableHttp": "node dist/index.js streamableHttp",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@geoffmyers/mcp-server-shared": "file:../mcp-server-shared",
+    "@modelcontextprotocol/sdk": "^1.25.2",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "shx": "^0.3.4",
+    "typescript": "^5.6.2",
+    "vitest": "^3.0.0"
+  }
+}
