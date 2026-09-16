@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/icon.svg" width="96" height="96" alt="MCP Servers icon">
+</p>
+
 # MCP Servers
 
 <!-- BADGES:START -->
@@ -272,6 +276,8 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for more detail.
   Docker, Portainer, TrueNAS, pfSense, UniFi, Home Assistant, ESPHome,
   Zigbee2MQTT, Z-Wave JS, Qdrant and Ollama are independent projects and
   trademarks of their owners, and are not affiliated with this one.
+- The README icon is the [Font Awesome](https://fontawesome.com/) `server` glyph,
+  used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 Written by Geoff Myers.
 
