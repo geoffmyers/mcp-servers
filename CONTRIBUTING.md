@@ -40,6 +40,23 @@ python -m py_compile server.py
 
 <!-- CHECKS:END -->
 
+<!-- RELEASES:START -->
+### Container images
+
+Every push to `main` builds these for `linux/amd64` and `linux/arm64` and
+pushes them to the GitHub Container Registry ([`.github/workflows/images.yml`](.github/workflows/images.yml)),
+tagged `latest` and `sha-<commit>`:
+
+- `ghcr.io/geoffmyers/mcp-server-find`: `Dockerfile`
+- `ghcr.io/geoffmyers/mcp-server-grep`: `Dockerfile`
+- `ghcr.io/geoffmyers/mcp-server-sed`: `Dockerfile`
+- `ghcr.io/geoffmyers/mcp-server-rsync`: `Dockerfile`
+- `ghcr.io/geoffmyers/mcp-server-nmap`: `Dockerfile`
+- `ghcr.io/geoffmyers/mcp-server-xargs`: `Dockerfile`
+- `ghcr.io/geoffmyers/mcp-server-portainer`: `Dockerfile`
+
+<!-- RELEASES:END -->
+
 ## Before you open a pull request
 
 - Keep the change focused. One concern per PR is much easier to review.

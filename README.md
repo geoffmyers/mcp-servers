@@ -23,6 +23,7 @@
   - [Configuring a server](#configuring-a-server)
   - [Registering a server with Claude Code](#registering-a-server-with-claude-code)
   - [Running over HTTP](#running-over-http)
+  - [Running in a container](#running-in-a-container)
   - [Running on a remote host](#running-on-a-remote-host)
 - [Architecture](#architecture)
   - [Safety](#safety)
@@ -207,6 +208,34 @@ PORT=8080 node find-mcp-server/dist/index.js streamableHttp
 
 Any other argument prints the usage.
 
+### Running in a container
+
+Seven servers are published as images on the GitHub Container Registry, for
+`linux/amd64` and `linux/arm64`, serving HTTP on their usual port:
+
+| Server | Image | Port |
+|---|---|---|
+| find | `ghcr.io/geoffmyers/mcp-server-find` | 3010 |
+| grep | `ghcr.io/geoffmyers/mcp-server-grep` | 3011 |
+| sed | `ghcr.io/geoffmyers/mcp-server-sed` | 3012 |
+| rsync | `ghcr.io/geoffmyers/mcp-server-rsync` | 3013 |
+| nmap | `ghcr.io/geoffmyers/mcp-server-nmap` | 3014 |
+| xargs | `ghcr.io/geoffmyers/mcp-server-xargs` | 3015 |
+| Portainer | `ghcr.io/geoffmyers/mcp-server-portainer` | 3002 |
+
+```bash
+docker run --rm -p 3010:3010 ghcr.io/geoffmyers/mcp-server-find
+```
+
+A command-line server works on the files it can see: mount them into the
+container, or set `EXECUTION_MODE=ssh` (below) with an SSH key mounted at
+`/home/node/.ssh`. To build any server's image yourself, from this directory:
+
+```bash
+docker build --build-arg SERVER=find-mcp-server \
+  --build-arg PACKAGES="findutils openssh-client" -t mcp-server-find .
+```
+
 ### Running on a remote host
 
 The command-line infrastructure servers run their commands locally by default.
@@ -248,7 +277,8 @@ The shared package provides:
 
 The MCP SDK and Zod are peer dependencies of the shared package, so every
 server uses the single copy the workspace installs. Seven servers (find, grep,
-nmap, portainer, rsync, sed and xargs) also include a Dockerfile.
+nmap, portainer, rsync, sed and xargs) are also published as container
+images, built from the workspace's one `Dockerfile`.
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for more detail.
 

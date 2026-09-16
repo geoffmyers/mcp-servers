@@ -1,0 +1,12 @@
+# Keep the build context to sources: dependencies and build output are made
+# inside the image.
+**/node_modules
+**/dist
+_archive
+remote-desktop-mcp-server
+claude-mcp-config
+docs
+**/*.md
+!*/docs/**
+.git
+.github
