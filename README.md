@@ -7,19 +7,6 @@
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
 <!-- BADGES:END -->
 
-## Description
-
-Seventeen [Model Context Protocol](https://modelcontextprotocol.io/) (MCP)
-servers that let an AI assistant such as Claude work with a homelab: Docker and
-Portainer, TrueNAS, pfSense, UniFi, Home Assistant, ESPHome, Zigbee2MQTT and
-Z-Wave JS, plus safe wrappers around `find`, `grep`, `sed`, `rsync`, `nmap` and
-`xargs`, a semantic search server for Markdown notes, and a VNC server for
-seeing and driving remote desktops.
-
-Sixteen are TypeScript packages in one npm workspace, sharing a common runtime
-and offering both the stdio and streamable HTTP transports. The remote-desktop
-server is written in Python.
-
 ## Table of Contents
 
 - [Description](#description)
@@ -38,6 +25,19 @@ server is written in Python.
 - [Credits](#credits)
 - [Contributing](#contributing)
 - [License](#license)
+
+## Description
+
+Seventeen [Model Context Protocol](https://modelcontextprotocol.io/) (MCP)
+servers that let an AI assistant such as Claude work with a homelab: Docker and
+Portainer, TrueNAS, pfSense, UniFi, Home Assistant, ESPHome, Zigbee2MQTT and
+Z-Wave JS, plus safe wrappers around `find`, `grep`, `sed`, `rsync`, `nmap` and
+`xargs`, a semantic search server for Markdown notes, and a VNC server for
+seeing and driving remote desktops.
+
+Sixteen are TypeScript packages in one npm workspace, sharing a common runtime
+and offering both the stdio and streamable HTTP transports. The remote-desktop
+server is written in Python.
 
 ## Screenshots
 
