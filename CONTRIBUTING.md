@@ -16,11 +16,29 @@ npm install
 
 ## Checks
 
-Run these before pushing:
+<!-- CHECKS:START -->
+Every push and pull request runs these checks in GitHub Actions
+([`.github/workflows/checks.yml`](.github/workflows/checks.yml)), and every release has passed them.
+To run one yourself, use the same commands from the directory shown.
+
+**build** (Node.js 22, from the repository root):
 
 ```bash
+npm ci
 npm run build
 ```
+
+**remote-desktop server** (Python 3.12, from `remote-desktop-mcp-server/`):
+
+```bash
+python -m venv /tmp/venv
+. /tmp/venv/bin/activate
+pip install --quiet --upgrade pip
+pip install --quiet -r requirements.txt
+python -m py_compile server.py
+```
+
+<!-- CHECKS:END -->
 
 ## Before you open a pull request
 
