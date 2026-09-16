@@ -134,4 +134,11 @@ Infrastructure server credentials are managed via 1Password CLI with `.env.tpl` 
 - Build step copies `docs/` into `dist/docs/` for runtime instruction loading.
 - Default HTTP ports vary per server (3001–3027); override with `PORT` env var.
 - CLI-based servers use `EXECUTION_MODE=ssh` and `SSH_HOST=hostname` env vars for remote execution.
-- This is a git subtree; push changes upstream with `scripts/safe-subtree-push.sh --prefix=mcp-servers --remote=mcp-servers`.
+- This project is published to GitHub (`geoffmyers/mcp-servers`) as a snapshot.
+  Each publish appends one commit to the public history. Publish with:
+  `scripts/publish-subtree-snapshot.sh --prefix=mcp-servers --publish`
+  Exclusions and GitHub metadata are declared in `scripts/subtree-publish.json`.
+- **NEVER run `git subtree push` or `git subtree split`.** A raw split has twice
+  pushed the entire mono-repo history — and the secrets in it — to a public remote
+  (see `docs/security/2026-02-04-` and `2026-05-12-credential-leak-audit.md`). A
+  pre-push hook refuses it.
