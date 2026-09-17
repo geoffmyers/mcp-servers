@@ -4,6 +4,9 @@
   "license": "GPL-3.0-or-later",
   "type": "module",
   "description": "npm workspace root for all custom MCP servers. Hoists @modelcontextprotocol/sdk so shared and consumer packages resolve to the same install.",
+  "engines": {
+    "node": ">=20.6"
+  },
   "workspaces": [
     "mcp-server-shared",
     "*-mcp-server"
@@ -11,6 +14,17 @@
   "scripts": {
     "build": "npm run build --workspaces --if-present",
     "watch": "npm run watch --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
     "clean": "rm -rf */node_modules */dist node_modules"
+  },
+  "overrides": {
+    "hono": "4.13.8",
+    "fast-uri": "3.1.8",
+    "ip-address": "10.7.2",
+    "ws": "8.21.3",
+    "@hono/node-server": "1.19.17",
+    "body-parser": "2.3.0",
+    "qs": "6.16.0",
+    "brace-expansion": "1.1.21"
   }
 }

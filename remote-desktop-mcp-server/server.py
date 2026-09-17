@@ -9,16 +9,16 @@ any configured VNC host, alongside SSH. Supports:
 Built on `asyncvnc` (async, handles both auth types). Multiple hosts live in a registry
 (hosts.json / VNC_HOSTS env); tools take an optional `host` name and fall back to the default.
 
-Why VNC (not RDP): VNC mirrors the live console session; RDP disconnects it (which on the
-GamingPC would tear down Docker Desktop / the GPU node). VNC also works uniformly across
-Windows, Linux, and macOS.
+Why VNC (not RDP): VNC mirrors the live console session; RDP disconnects it (which on a
+Windows host with GPU workloads pinned to that session would tear those down). VNC also
+works uniformly across Windows, Linux, and macOS.
 
 Config — a JSON registry, resolved from (first found): env VNC_HOSTS (inline JSON), else
 hosts.json (generated from hosts.json.tpl via `op inject`, gitignored). Shape:
-  {"default": "gamingpc",
+  {"default": "windows-desktop",
    "hosts": {
-     "gamingpc": {"host":"192.0.2.10","port":5900,"password":"...","platform":"windows"},
-     "macmini":  {"host":"192.0.2.11","port":5900,"username":"<user>","password":"...","platform":"macos"}
+     "windows-desktop": {"host":"192.0.2.10","port":5900,"password":"...","platform":"windows"},
+     "mac-mini":  {"host":"192.0.2.11","port":5900,"username":"<user>","password":"...","platform":"macos"}
    }}
 A host with a `username` uses Apple ARD auth; otherwise standard VNC password auth.
 """

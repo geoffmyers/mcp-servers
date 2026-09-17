@@ -1,33 +1,33 @@
 {
-  "default": "gamingpc",
+  "default": "windows-desktop",
   "hosts": {
-    "gamingpc": {
+    "windows-desktop": {
       "host": "192.0.2.10",
       "port": 5900,
-      "password": "op://<vault>/gamingpc-vnc/password",
+      "password": "op://<vault>/windows-desktop-vnc/password",
       "platform": "windows",
       "_note": "Windows (TightVNC): standard VNC password auth (no username field)."
     },
-    "macvm": {
+    "mac-mini": {
       "host": "192.0.2.11",
       "port": 5900,
-      "username": "op://<vault>/macosvm-login/username",
-      "password": "op://<vault>/macosvm-login/password",
+      "username": "op://<vault>/mac-mini-login/username",
+      "password": "op://<vault>/mac-mini-login/password",
       "platform": "macos",
       "_note": "macOS Screen Sharing: a username field triggers Apple ARD (Diffie-Hellman user+pass). Enable System Settings > General > Sharing > Screen Sharing."
     },
-    "esphome-emulator": {
+    "linux-vm-1": {
       "host": "127.0.0.1",
       "port": 5901,
       "platform": "linux",
-      "_note": "Linux container x11vnc, no auth (no password/username). Container's internal :5900 is published to a stable host port (see the docker-compose ports: 5901/5902/5903 -> 5900). noVNC web UI remains on 6080/6081/6082."
+      "_note": "Linux container x11vnc, no auth (no password/username). Each container's internal :5900 is published to a stable host port (this example: 5901/5902/5903 -> 5900). A noVNC web UI, if one is exposed, would live on separate ports (e.g. 6080/6081/6082)."
     },
-    "cic-screen-sim": {
+    "linux-vm-2": {
       "host": "127.0.0.1",
       "port": 5902,
       "platform": "linux"
     },
-    "qnx-emulator": {
+    "linux-vm-3": {
       "host": "127.0.0.1",
       "port": 5903,
       "platform": "linux"

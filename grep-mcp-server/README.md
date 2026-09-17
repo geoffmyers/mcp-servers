@@ -14,9 +14,10 @@ A [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server wrappi
 
 ## Installation
 
+From the repository root (the servers are one npm workspace):
+
 ```bash
-cd mcp-servers/grep-mcp-server
-npm install
+npm ci
 npm run build
 ```
 

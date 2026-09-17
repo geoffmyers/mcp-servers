@@ -12,7 +12,7 @@ Custom [Model Context Protocol](https://modelcontextprotocol.io/) servers for in
 |--------|-------------|-------|-----------|---------|------|
 | portainer | Portainer CE REST API | 36 | 5 | 3 | 3002 |
 
-> **Archived 2026-06-17:** the `truenas`/`pfsense`/`unifi` REST/WebSocket servers moved to `_archive/`. They were unused by both `.mcp.json` (Claude Code → the `-cli` variants below) and the Claude Desktop config (external `uvx`/`npx` packages). The active path for these three is the CLI-based servers below.
+> The earlier `truenas`/`pfsense`/`unifi` REST/WebSocket servers were retired (2026-06-17) in favour of the CLI-based servers below and are not part of the published repository.
 
 ### CLI Tool Servers (no credentials)
 
@@ -111,12 +111,9 @@ Build artifacts (`dist/`) and the workspace-root `node_modules/` are gitignored.
 
 ## Configuration
 
-MCP servers are configured in the monorepo root:
-- `.mcp.json` — Live configuration with real credentials (gitignored)
-- `.mcp.json.tpl` — Template with `${VAR}` placeholders for 1Password injection
-- `.mcp.json.example` — Example with `YOUR_*` placeholders for documentation
-
-Infrastructure server credentials are managed via 1Password CLI with `.env.tpl` files in each server directory.
+Each server reads its settings from environment variables; `.env.example` in each
+server directory lists them. Register a server with your MCP client (for Claude Code,
+an entry in `.mcp.json`) pointing at its built `dist/index.js`; see README.md.
 
 ## Safety
 
@@ -134,11 +131,6 @@ Infrastructure server credentials are managed via 1Password CLI with `.env.tpl` 
 - Build step copies `docs/` into `dist/docs/` for runtime instruction loading.
 - Default HTTP ports vary per server (3001–3027); override with `PORT` env var.
 - CLI-based servers use `EXECUTION_MODE=ssh` and `SSH_HOST=hostname` env vars for remote execution.
-- This project is published to GitHub (`geoffmyers/mcp-servers`) as a snapshot.
-  Each publish appends one commit to the public history. Publish with:
-  `scripts/publish-subtree-snapshot.sh --prefix=mcp-servers --publish`
-  Exclusions and GitHub metadata are declared in `scripts/subtree-publish.json`.
-- **NEVER run `git subtree push` or `git subtree split`.** A raw split has twice
-  pushed the entire mono-repo history — and the secrets in it — to a public remote
-  (see `docs/security/2026-02-04-` and `2026-05-12-credential-leak-audit.md`). A
-  pre-push hook refuses it.
+- This project is developed in a private repository and published to
+  GitHub (`geoffmyers/mcp-servers`) as a snapshot: each publish adds one commit.
+  Pull requests are applied upstream first; see CONTRIBUTING.md.

@@ -23,3 +23,5 @@ This server provides tools to perform text transformations using the `sed` comma
 - Use `case_insensitive: true` for case-insensitive matching
 - For `sed_extract`, use expressions like `5,10p` (lines 5-10) or `/pattern/p` (matching lines)
 - The `backup_suffix` defaults to `.bak` - the original file is saved as `filename.bak`
+- Pass `backup_suffix: ""` for no backup file at all; the server detects GNU vs BSD/macOS `sed` and builds the right `-i` invocation for each
+- `pattern` is not limited to `/` as a delimiter (e.g. `s|/usr/local|/opt|` when the search text itself contains slashes) — `global`/`case_insensitive` are appended correctly for any delimiter

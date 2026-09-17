@@ -19,9 +19,9 @@ A host entry with a `username` field uses Apple ARD auth; otherwise standard VNC
 
 ## Why VNC, not RDP
 
-VNC **mirrors the live console session**. RDP **disconnects** it and makes a new one — which on
-the GamingPC tears down **Docker Desktop / the GPU node** (immich-ml + ollama-3070) that depend on
-the console session. VNC also works uniformly across Windows, Linux, and macOS.
+VNC **mirrors the live console session**. RDP **disconnects** it and makes a new one — which on a
+Windows host tears down anything pinned to the console session (a GPU-backed Docker workload, for
+example). VNC also works uniformly across Windows, Linux, and macOS.
 
 ## Tools
 
@@ -51,10 +51,10 @@ real values. Shape:
 
 ```json
 {
-  "default": "gamingpc",
+  "default": "windows-desktop",
   "hosts": {
-    "gamingpc": {"host": "192.0.2.10", "port": 5900, "password": "op://<vault>/gamingpc-vnc/password", "platform": "windows"},
-    "macmini":  {"host": "192.0.2.11", "port": 5900, "username": "<user>", "password": "op://<vault>/macmini-screensharing/password", "platform": "macos"}
+    "windows-desktop": {"host": "192.0.2.10", "port": 5900, "password": "op://<vault>/windows-desktop-vnc/password", "platform": "windows"},
+    "mac-mini":  {"host": "192.0.2.11", "port": 5900, "username": "<user>", "password": "op://<vault>/mac-mini-screensharing/password", "platform": "macos"}
   }
 }
 ```

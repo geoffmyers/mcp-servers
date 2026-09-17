@@ -28,7 +28,7 @@ MCP server wrapping the ESPHome CLI for device configuration management, firmwar
 - The `esphome` binary lives inside the ESPHome container (standalone docker-compose deployment), not on the host
 - `executeEsphome()` in `src/lib/esphome.ts` wraps all `esphome` CLI calls with `docker exec <container>`
 - The effective command is: `docker exec <container> esphome <args>` (or via SSH when EXECUTION_MODE=ssh)
-- `list_devices` and the `esphome://devices` resource run `ls` inside the ESPHome container via `executeInContainer()` so the same `ESPHOME_CONFIG_DIR` (the container's view of the config dir) works for every tool. Running `ls` on the host is only correct when host and container paths happen to match, which is not guaranteed (e.g. on this TrueNAS host the host path is `<repo>/infrastructure/docker-compose/esphome` while the container sees `/config`).
+- `list_devices` and the `esphome://devices` resource run `ls` inside the ESPHome container via `executeInContainer()` so the same `ESPHOME_CONFIG_DIR` (the container's view of the config dir) works for every tool. Running `ls` on the host is only correct when host and container paths happen to match, which is not guaranteed (e.g. a host path such as `/srv/esphome` that the container sees as `/config`).
 - `ESPHOME_CONTAINER` env var controls the container name (default: `esphome` for the standalone deployment; HAOS add-on installs use `addon_5c53de3b_esphome`)
 
 ## Gotchas

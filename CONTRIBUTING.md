@@ -21,11 +21,12 @@ Every push and pull request runs these checks in GitHub Actions
 ([`.github/workflows/checks.yml`](.github/workflows/checks.yml)), and every release has passed them.
 To run one yourself, use the same commands from the directory shown.
 
-**build** (Node.js 22, from the repository root):
+**build and test** (Node.js 22, from the repository root):
 
 ```bash
 npm ci
 npm run build
+npm test
 ```
 
 **remote-desktop server** (Python 3.12, from `remote-desktop-mcp-server/`):

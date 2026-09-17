@@ -10,8 +10,6 @@ servers, plus one Python server that stands apart.
 | `mcp-server-shared/` | `@geoffmyers/mcp-server-shared` — the common runtime every TypeScript server depends on: server factory, CLI runner, HTTP transport, shared error handling. |
 | `<name>-mcp-server/` | One directory per server. Each has `src/index.ts` (CLI entry), `src/server/` (factory), `src/tools/` (one file per tool) and its own `.env.example`. |
 | `remote-desktop-mcp-server/` | The odd one out: Python, driving VNC via `asyncvnc`. |
-| `_archive/` | Superseded REST-based servers, kept for reference and not maintained. |
-| `claude-mcp-config/` | Example client configuration. |
 
 ## The pattern
 

@@ -16,9 +16,10 @@ Only the following commands can be used with `xargs_execute`:
 
 ## Installation
 
+From the repository root (the servers are one npm workspace):
+
 ```bash
-cd mcp-servers/xargs-mcp-server
-npm install
+npm ci
 npm run build
 ```
 

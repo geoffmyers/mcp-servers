@@ -2,6 +2,9 @@
   "name": "@geoffmyers/mcp-server-unifi-cli",
   "version": "1.0.0",
   "description": "MCP server for UniFi CLI via MongoDB queries (local or SSH)",
+  "engines": {
+    "node": ">=20.6"
+  },
   "license": "GPL-3.0-or-later",
   "author": "Geoff Myers",
   "type": "module",

@@ -110,9 +110,8 @@ connects.
 |---|---|---|---|
 | [remote-desktop](remote-desktop-mcp-server/) | Screenshots, mouse and keyboard on Windows, Linux and macOS hosts over VNC, including Apple Remote Desktop sign-in | 9 | stdio |
 
-Older REST-based `truenas`, `pfsense` and `unifi` servers are kept for reference
-in [`_archive/`](_archive/) and are not maintained. [`claude-mcp-config/`](claude-mcp-config/)
-holds example client configuration for third-party MCP servers.
+Earlier REST-based `truenas`, `pfsense` and `unifi` servers were retired in
+favour of the command-line servers above and are not part of this repository.
 
 ## Requirements
 

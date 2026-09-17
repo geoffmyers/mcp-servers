@@ -2,6 +2,9 @@
   "name": "@geoffmyers/mcp-server-sed",
   "version": "1.0.0",
   "description": "MCP server for the sed command-line tool",
+  "engines": {
+    "node": ">=20.6"
+  },
   "license": "GPL-3.0-or-later",
   "author": "Geoff Myers",
   "type": "module",
@@ -14,6 +17,7 @@
   "scripts": {
     "build": "tsc && shx mkdir -p dist/docs && shx cp -r docs/* dist/docs/ && shx chmod +x dist/index.js",
     "watch": "tsc --watch",
+    "test": "node --test test/*.test.js",
     "start:stdio": "node dist/index.js stdio",
     "start:streamableHttp": "node dist/index.js streamableHttp"
   },

@@ -1,0 +1,33 @@
+# Dependencies and build output (per-server; the workspace hoists
+# node_modules to this root too).
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Environment files. Every server ships a committed `.env.example`; the real
+# `.env` a user creates from it must never be committed.
+.env
+.env.*
+!.env.example
+
+# Test coverage
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Python (remote-desktop-mcp-server)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Editor / OS cruft
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
