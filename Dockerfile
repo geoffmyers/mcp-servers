@@ -12,7 +12,10 @@
 # Streamable HTTP; each server's README gives its port.
 ARG NODE_IMAGE=node:22-alpine
 
-FROM ${NODE_IMAGE} AS builder
+# The build runs on the build machine's own platform: its output (compiled
+# JavaScript, and dependencies installed without scripts) is the same for
+# every platform, and npm under arm64 emulation can hang for an hour.
+FROM --platform=$BUILDPLATFORM ${NODE_IMAGE} AS builder
 ARG SERVER
 WORKDIR /app
 COPY . .
