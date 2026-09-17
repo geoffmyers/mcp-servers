@@ -7,6 +7,7 @@
 <!-- BADGES:START -->
 ![TypeScript 5.6.2](https://img.shields.io/badge/TypeScript-5.6.2-3178c6?style=flat-square&logo=typescript)
 ![NumPy 1.26+](https://img.shields.io/badge/NumPy-1.26+-013243?style=flat-square&logo=numpy)
+[![Container images](https://img.shields.io/badge/ghcr.io-7%20images-2496ED?style=flat-square&logo=docker&logoColor=white)](https://github.com/geoffmyers/mcp-servers/packages)
 [![Licence GPL-3.0-or-later](https://img.shields.io/badge/licence-GPL--3.0--or--later-blue?style=flat-square)](LICENSE.md)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
 <!-- BADGES:END -->

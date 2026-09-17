@@ -47,13 +47,13 @@ Every push to `main` builds these for `linux/amd64` and `linux/arm64` and
 pushes them to the GitHub Container Registry ([`.github/workflows/images.yml`](.github/workflows/images.yml)),
 tagged `latest` and `sha-<commit>`:
 
-- `ghcr.io/geoffmyers/mcp-server-find`: `Dockerfile`
-- `ghcr.io/geoffmyers/mcp-server-grep`: `Dockerfile`
-- `ghcr.io/geoffmyers/mcp-server-sed`: `Dockerfile`
-- `ghcr.io/geoffmyers/mcp-server-rsync`: `Dockerfile`
-- `ghcr.io/geoffmyers/mcp-server-nmap`: `Dockerfile`
-- `ghcr.io/geoffmyers/mcp-server-xargs`: `Dockerfile`
-- `ghcr.io/geoffmyers/mcp-server-portainer`: `Dockerfile`
+- [`ghcr.io/geoffmyers/mcp-server-find`](https://github.com/geoffmyers/mcp-servers/pkgs/container/mcp-server-find): `Dockerfile`
+- [`ghcr.io/geoffmyers/mcp-server-grep`](https://github.com/geoffmyers/mcp-servers/pkgs/container/mcp-server-grep): `Dockerfile`
+- [`ghcr.io/geoffmyers/mcp-server-sed`](https://github.com/geoffmyers/mcp-servers/pkgs/container/mcp-server-sed): `Dockerfile`
+- [`ghcr.io/geoffmyers/mcp-server-rsync`](https://github.com/geoffmyers/mcp-servers/pkgs/container/mcp-server-rsync): `Dockerfile`
+- [`ghcr.io/geoffmyers/mcp-server-nmap`](https://github.com/geoffmyers/mcp-servers/pkgs/container/mcp-server-nmap): `Dockerfile`
+- [`ghcr.io/geoffmyers/mcp-server-xargs`](https://github.com/geoffmyers/mcp-servers/pkgs/container/mcp-server-xargs): `Dockerfile`
+- [`ghcr.io/geoffmyers/mcp-server-portainer`](https://github.com/geoffmyers/mcp-servers/pkgs/container/mcp-server-portainer): `Dockerfile`
 
 <!-- RELEASES:END -->
 
