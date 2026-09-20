@@ -3,6 +3,7 @@ import { formatErrorForMcp } from "@geoffmyers/mcp-server-shared";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
 import { embed } from "../lib/embed.js";
+import { rerankHits } from "../lib/rerank.js";
 import {
   buildPathFilter,
   getPointById,
@@ -34,6 +35,7 @@ export function registerSearchTools(server: McpServer): void {
       path_prefix: z.string().optional().describe("Restrict to paths containing this substring, matched exactly (e.g., 'infrastructure/bmw-mqtt-bridge')"),
       tags: z.array(z.string()).optional().describe("Restrict to chunks whose frontmatter tags include all of these"),
       include_body: z.boolean().optional().default(true).describe("Include chunk text in response (default true)"),
+      rerank: z.boolean().optional().describe("Reorder candidates with the cross-encoder (default true when RERANK_URL is set). Set false for the raw vector/RRF order, or to shave ~1 s."),
     },
     async (args): Promise<CallToolResult> => {
       try {
@@ -41,13 +43,20 @@ export function registerSearchTools(server: McpServer): void {
         const filter = buildPathFilter(args.path_prefix, args.tags);
         // Over-fetch, then apply the exact substring scope: the Qdrant filter
         // is a token match and lets sibling subtrees through.
-        const raw = await searchVector(vector, args.path_prefix ? args.limit * 5 : args.limit, filter);
-        const hits = raw.filter((h) => matchesPath(h.payload.path, args.path_prefix)).slice(0, args.limit);
-        if (hits.length === 0) {
+        // Fetch a pool rather than a page: the reranker can only promote what it
+        // is shown, so asking Qdrant for exactly `limit` would make the stage
+        // decorative.
+        const want = args.rerank === false ? args.limit : Math.max(args.limit, 24);
+        const raw = await searchVector(vector, args.path_prefix ? want * 5 : want, filter);
+        const scoped = raw.filter((h) => matchesPath(h.payload.path, args.path_prefix));
+        if (scoped.length === 0) {
           return { content: [{ type: "text", text: "No matches found." }] };
         }
-        const text = hits.map((h) => formatHit(h, args.include_body)).join("\n\n---\n\n");
-        return { content: [{ type: "text", text }] };
+        const ranked = args.rerank === false
+          ? { hits: scoped.slice(0, args.limit), reranked: false, note: "ranking: vector (rerank=false)" }
+          : await rerankHits(args.query, scoped, args.limit);
+        const text = ranked.hits.map((h) => formatHit(h, args.include_body)).join("\n\n---\n\n");
+        return { content: [{ type: "text", text: `${text}\n\n---\n${ranked.note}` }] };
       } catch (error) {
         return formatErrorForMcp(error);
       }
@@ -63,27 +72,33 @@ export function registerSearchTools(server: McpServer): void {
       path_prefix: z.string().optional().describe("Restrict to paths containing this substring, matched exactly"),
       tags: z.array(z.string()).optional().describe("Restrict to chunks whose frontmatter tags include all of these"),
       include_body: z.boolean().optional().default(true).describe("Include chunk text in response (default true)"),
+      rerank: z.boolean().optional().describe("Reorder candidates with the cross-encoder (default true when RERANK_URL is set). Set false for the raw vector/RRF order, or to shave ~1 s."),
     },
     async (args): Promise<CallToolResult> => {
       try {
         const filter = buildPathFilter(args.path_prefix, args.tags);
         const vector = await embed(args.query);
         const over = args.path_prefix ? 5 : 2;
+        const pool = args.rerank === false ? args.limit : Math.max(args.limit, 24);
         const [vec, kw] = await Promise.all([
-          searchVector(vector, Math.max(args.limit * over, 20), filter),
-          searchKeyword(args.query, Math.max(args.limit * over, 20), filter),
+          searchVector(vector, Math.max(pool * over, 32), filter),
+          searchKeyword(args.query, Math.max(pool * over, 32), filter),
         ]);
         const merged = rrfMerge(
           [vec.filter((h) => matchesPath(h.payload.path, args.path_prefix)),
            kw.filter((h) => matchesPath(h.payload.path, args.path_prefix))],
           60,
-          args.limit,
+          // Merge a pool, not a page, so the reranker has candidates to reorder.
+          args.rerank === false ? args.limit : Math.max(args.limit, 24),
         );
         if (merged.length === 0) {
           return { content: [{ type: "text", text: "No matches found." }] };
         }
-        const text = merged.map((h) => formatHit(h, args.include_body)).join("\n\n---\n\n");
-        return { content: [{ type: "text", text }] };
+        const ranked = args.rerank === false
+          ? { hits: merged.slice(0, args.limit), reranked: false, note: "ranking: RRF (rerank=false)" }
+          : await rerankHits(args.query, merged, args.limit);
+        const text = ranked.hits.map((h) => formatHit(h, args.include_body)).join("\n\n---\n\n");
+        return { content: [{ type: "text", text: `${text}\n\n---\n${ranked.note}` }] };
       } catch (error) {
         return formatErrorForMcp(error);
       }
