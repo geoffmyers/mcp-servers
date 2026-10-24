@@ -16,7 +16,7 @@ MCP server wrapping pfSense CLI tools (pfctl, pfSsh.php, FreeBSD utilities) for 
 - `src/tools/dns.ts` - DNS tools: host overrides, domain overrides
 - `src/tools/index.ts` - Tool registration
 - `src/resources/index.ts` - Resources: pfsense-cli://system/info, pfsense-cli://interfaces, pfsense-cli://firewall/rules
-- `src/prompts/connectivity-diagnose.ts` - Network connectivity diagnosis prompt
+- `src/prompts/diagnose-connectivity.ts` - Network connectivity diagnosis prompt
 - `src/prompts/firewall-audit.ts` - Firewall rule audit prompt
 - `docs/instructions.md` - Server instructions bundled into dist/
 - `.env.tpl` - Environment configuration (EXECUTION_MODE, SSH_HOST)

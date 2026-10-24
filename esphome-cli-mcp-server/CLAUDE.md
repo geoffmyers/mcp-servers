@@ -13,7 +13,7 @@ MCP server wrapping the ESPHome CLI for device configuration management, firmwar
 - `src/tools/utility.ts` - Utility tools: validate config, version
 - `src/tools/index.ts` - Tool registration
 - `src/resources/index.ts` - Resources: esphome://devices
-- `src/prompts/device-troubleshoot.ts` - Device troubleshooting prompt
+- `src/prompts/diagnose-device.ts` - Device troubleshooting prompt
 - `docs/instructions.md` - Server instructions bundled into dist/
 - `.env.tpl` - Environment configuration (EXECUTION_MODE, SSH_HOST, ESPHOME_CONFIG_DIR, ESPHOME_CONTAINER)
 

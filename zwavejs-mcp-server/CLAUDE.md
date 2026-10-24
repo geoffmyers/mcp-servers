@@ -16,7 +16,7 @@ MCP server for Z-Wave JS UI management via MQTT messaging and Docker container c
 - `src/tools/config.ts` - Config tools: get node config params, set node config param
 - `src/tools/index.ts` - Tool registration
 - `src/resources/index.ts` - Resources: zwavejs://controller/info, zwavejs://nodes
-- `src/prompts/node-troubleshoot.ts` - Node troubleshooting prompt
+- `src/prompts/diagnose-node.ts` - Node troubleshooting prompt
 - `src/prompts/network-health.ts` - Network health check prompt
 - `docs/instructions.md` - Server instructions bundled into dist/
 - `.env.tpl` - Environment configuration (EXECUTION_MODE, SSH_HOST, MQTT_HOST, MQTT_PORT, MQTT_USER, MQTT_PASSWORD)

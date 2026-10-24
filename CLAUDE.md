@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Custom [Model Context Protocol](https://modelcontextprotocol.io/) servers for infrastructure management and CLI tool access. All servers are TypeScript/Node.js with dual transport support (stdio for Claude Code, streamable HTTP for web clients).
+Custom [Model Context Protocol](https://modelcontextprotocol.io/) servers for infrastructure management and CLI tool access. All servers but one are TypeScript/Node.js npm-workspace members with dual transport support (stdio for Claude Code, streamable HTTP for web clients). The exception is `remote-desktop-mcp-server/`, a standalone **Python** (FastMCP, stdio only) server outside the workspace; see [Remote desktop](#remote-desktop-python).
 
 ## Server Categories
 
@@ -43,6 +43,19 @@ Custom [Model Context Protocol](https://modelcontextprotocol.io/) servers for in
 | Server | Description | Tools | Resources | Prompts | Port |
 |--------|-------------|-------|-----------|---------|------|
 | markdown-rag | Semantic + hybrid search over `*.md` via Qdrant + Ollama `nomic-embed-text` | 4 | 1 | 1 | 3028 |
+
+### Remote desktop (Python)
+
+| Server | Description | Tools | Transport |
+|--------|-------------|-------|-----------|
+| remote-desktop | View and drive Windows, Linux and macOS hosts over VNC (screenshot, mouse, keyboard); standard VNC password or Apple ARD auth | 9 | stdio only |
+
+Not an npm workspace member: `server.py` + `requirements.txt` (install into a local `.venv` first),
+started by `run.sh`, which runs `.venv/bin/python server.py`. Hosts come from `hosts.json` (generated
+from the 1Password-templated `hosts.json.tpl` on first run; see `hosts.json.example`) or inline
+`VNC_HOSTS` JSON. The
+TypeScript conventions below (shared package, `runCli()`, HTTP ports) do not apply. See
+`remote-desktop-mcp-server/README.md`.
 
 ## Architecture
 
@@ -129,7 +142,7 @@ an entry in `.mcp.json`) pointing at its built `dist/index.js`; see README.md.
 - `npm install` in a fresh workspace only runs the shared package's `prepare` (which builds it). Consumers do NOT auto-build — run `npm run build` from the workspace root afterwards.
 - If you copy an existing server to make a new one: keep `prepare` OUT of the new package.json scripts (only shared has it), include `"@geoffmyers/mcp-server-shared": "file:../mcp-server-shared"` as a dep, and rely on `runCli()` in `src/index.ts` + `createServerFactory()` in `src/server/index.ts`.
 - Build step copies `docs/` into `dist/docs/` for runtime instruction loading.
-- Default HTTP ports vary per server (3001–3027); override with `PORT` env var.
+- Default HTTP ports vary per server (3002–3028, in the tables above); override with `PORT` env var.
 - CLI-based servers use `EXECUTION_MODE=ssh` and `SSH_HOST=hostname` env vars for remote execution.
 - This project is developed in a private repository and published to
   GitHub (`geoffmyers/mcp-servers`) as a snapshot: each publish adds one commit.

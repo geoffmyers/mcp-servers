@@ -1,6 +1,13 @@
 # CLAUDE.md - Home Assistant CLI MCP Server
 
 ## Project Overview
+
+> **Works only against Home Assistant OS (HAOS) or a Supervised install.** The `ha` CLI talks to
+> the Supervisor, which a Home Assistant Core container does not have (no Supervisor, no add-ons, no
+> `ha` binary). The author's own Home Assistant has run as a Core container since 2026-05-16, so
+> this server is not used there; against a Core container use Home Assistant's built-in MCP Server
+> integration or its REST / WebSocket API instead.
+
 MCP server wrapping the Home Assistant `ha` CLI for add-on, backup, core, host, network, OS, supervisor, and resolution management. Supports local or SSH execution via `@geoffmyers/mcp-server-shared`. Provides 31 tools, 3 resources, and 2 prompts.
 
 ## Architecture / Key Files
@@ -16,8 +23,8 @@ MCP server wrapping the Home Assistant `ha` CLI for add-on, backup, core, host, 
 - `src/tools/resolution.ts` - Resolution Center tools: info, check
 - `src/tools/index.ts` - Tool registration
 - `src/resources/index.ts` - Resources: ha://core/info, ha://host/info, ha://addons
-- `src/prompts/addon-troubleshoot.ts` - Add-on troubleshooting prompt
-- `src/prompts/system-health.ts` - System health check prompt
+- `src/prompts/diagnose-addon.ts` - Add-on troubleshooting prompt
+- `src/prompts/health-check.ts` - System health check prompt
 - `docs/instructions.md` - Server instructions bundled into dist/
 - `.env.tpl` - Environment configuration (EXECUTION_MODE, SSH_HOST)
 

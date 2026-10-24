@@ -16,7 +16,7 @@ MCP server for Zigbee2MQTT management via MQTT messaging and Docker container co
 - `src/tools/ota.ts` - OTA tools: check firmware update
 - `src/tools/index.ts` - Tool registration
 - `src/resources/index.ts` - Resources: zigbee2mqtt://bridge/info, zigbee2mqtt://devices
-- `src/prompts/device-troubleshoot.ts` - Device troubleshooting prompt
+- `src/prompts/diagnose-device.ts` - Device troubleshooting prompt
 - `src/prompts/network-health.ts` - Network health check prompt
 - `docs/instructions.md` - Server instructions bundled into dist/
 - `.env.tpl` - Environment configuration (EXECUTION_MODE, SSH_HOST, MQTT_HOST, MQTT_PORT, MQTT_USER, MQTT_PASSWORD)

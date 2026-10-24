@@ -18,7 +18,7 @@ export function registerSnapshotTools(server: McpServer): void {
     },
     async (args): Promise<CallToolResult> => {
       try {
-        const cmdArgs = ["call", "zfs.snapshot.query"];
+        const cmdArgs = ["call", "pool.snapshot.query"];
         const filters: unknown[] = [];
         if (args.dataset) {
           filters.push(["dataset", "=", args.dataset]);
@@ -36,7 +36,7 @@ export function registerSnapshotTools(server: McpServer): void {
         cmdArgs.push(JSON.stringify(filters), JSON.stringify(options));
         const result = await executeAuto(config, "midclt", cmdArgs, { timeout: 120_000, maxBuffer: 10 * 1024 * 1024 });
         if (result.exitCode !== 0) {
-          return { isError: true, content: [{ type: "text", text: `midclt call zfs.snapshot.query failed: ${result.stderr}` }] };
+          return { isError: true, content: [{ type: "text", text: `midclt call pool.snapshot.query failed: ${result.stderr}` }] };
         }
         if (args.count_only) {
           return { content: [{ type: "text", text: `Total snapshots matching filter: ${result.stdout.trim()}` }] };
@@ -58,9 +58,9 @@ export function registerSnapshotTools(server: McpServer): void {
     async (args): Promise<CallToolResult> => {
       try {
         const payload = JSON.stringify({ dataset: args.dataset, name: args.name });
-        const result = await executeAuto(config, "midclt", ["call", "zfs.snapshot.create", payload]);
+        const result = await executeAuto(config, "midclt", ["call", "pool.snapshot.create", payload]);
         if (result.exitCode !== 0) {
-          return { isError: true, content: [{ type: "text", text: `midclt call zfs.snapshot.create failed: ${result.stderr}` }] };
+          return { isError: true, content: [{ type: "text", text: `midclt call pool.snapshot.create failed: ${result.stderr}` }] };
         }
         return { content: [{ type: "text", text: result.stdout || `Snapshot ${args.dataset}@${args.name} created.` }] };
       } catch (error) {
@@ -81,9 +81,9 @@ export function registerSnapshotTools(server: McpServer): void {
         return { isError: true, content: [{ type: "text", text: "Destructive operation: set confirm: true to delete this snapshot." }] };
       }
       try {
-        const result = await executeAuto(config, "midclt", ["call", "zfs.snapshot.delete", args.id]);
+        const result = await executeAuto(config, "midclt", ["call", "pool.snapshot.delete", args.id]);
         if (result.exitCode !== 0) {
-          return { isError: true, content: [{ type: "text", text: `midclt call zfs.snapshot.delete failed: ${result.stderr}` }] };
+          return { isError: true, content: [{ type: "text", text: `midclt call pool.snapshot.delete failed: ${result.stderr}` }] };
         }
         return { content: [{ type: "text", text: result.stdout || `Snapshot ${args.id} deleted.` }] };
       } catch (error) {
@@ -104,9 +104,9 @@ export function registerSnapshotTools(server: McpServer): void {
         return { isError: true, content: [{ type: "text", text: "Destructive operation: set confirm: true to rollback to this snapshot." }] };
       }
       try {
-        const result = await executeAuto(config, "midclt", ["call", "zfs.snapshot.rollback", args.id]);
+        const result = await executeAuto(config, "midclt", ["call", "pool.snapshot.rollback", args.id]);
         if (result.exitCode !== 0) {
-          return { isError: true, content: [{ type: "text", text: `midclt call zfs.snapshot.rollback failed: ${result.stderr}` }] };
+          return { isError: true, content: [{ type: "text", text: `midclt call pool.snapshot.rollback failed: ${result.stderr}` }] };
         }
         return { content: [{ type: "text", text: result.stdout || `Rolled back to snapshot ${args.id}.` }] };
       } catch (error) {

@@ -2,6 +2,11 @@
 
 This server provides tools for managing Home Assistant via the `ha` CLI (Home Assistant Command Line).
 
+**It only works against Home Assistant OS or a Supervised install.** The `ha` CLI talks to the
+Supervisor; a Home Assistant Core container has no Supervisor, no add-ons and no `ha` binary, so
+every tool here fails against one. For a Core container, use Home Assistant's REST / WebSocket API
+or its built-in MCP Server integration instead.
+
 ## Available Operations
 
 ### Core

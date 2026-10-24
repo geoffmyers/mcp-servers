@@ -135,8 +135,14 @@ export function registerServiceTools(server: McpServer): void {
     },
     async (args): Promise<CallToolResult> => {
       try {
-        const iface = args.interface;
-        const phpCode = `require_once('/etc/inc/config.inc'); $c = parse_config(true); echo json_encode($c['dhcpd']['` + iface + `']['staticmap'] ?? [], JSON_PRETTY_PRINT);`;
+        const iface = String(args.interface);
+        // The interface name is interpolated into PHP that runs as root on pfSense:
+        // accept only pfSense interface ids (lan, opt3, wan, ...).
+        if (!/^[a-z][a-z0-9_]{0,31}$/.test(iface)) {
+          return { isError: true, content: [{ type: "text", text: `Invalid interface name: ${iface}` }] };
+        }
+        // pfSense 2.9 removed parse_config(); config_get_path() is its replacement (2026-10-20).
+        const phpCode = `require_once('/etc/inc/config.inc'); echo json_encode(config_get_path('dhcpd/${iface}/staticmap', []), JSON_PRETTY_PRINT);`;
         const result = await executeAuto(config, "php", ["-r", phpCode]);
         if (result.exitCode !== 0) {
           return { isError: true, content: [{ type: "text", text: `List DHCP static mappings failed: ${result.stderr}` }] };

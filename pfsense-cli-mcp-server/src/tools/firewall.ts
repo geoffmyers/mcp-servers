@@ -62,7 +62,8 @@ export function registerFirewallTools(server: McpServer): void {
     {},
     async (): Promise<CallToolResult> => {
       try {
-        const phpCode = `require_once('/etc/inc/config.inc'); $c = parse_config(true); echo json_encode($c['aliases']['alias'] ?? [], JSON_PRETTY_PRINT);`;
+        // pfSense 2.9 removed parse_config(); config_get_path() is its replacement (2026-10-20).
+        const phpCode = `require_once('/etc/inc/config.inc'); echo json_encode(config_get_path('aliases/alias', []), JSON_PRETTY_PRINT);`;
         const result = await executeAuto(config, "php", ["-r", phpCode]);
         if (result.exitCode !== 0) {
           return { isError: true, content: [{ type: "text", text: `List firewall aliases failed: ${result.stderr}` }] };
