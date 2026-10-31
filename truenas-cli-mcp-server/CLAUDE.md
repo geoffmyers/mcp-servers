@@ -60,4 +60,7 @@ exist (older releases), never after an operation that genuinely failed.
 - All commands use `midclt call <method> [json_params]` pattern
 - JSON parameters are passed via `JSON.stringify()` as command arguments
 - Destructive operations (delete, rollback, reboot, shutdown) require `confirm: true`
+- `system.reboot` / `system.shutdown` take a required `reason` (25.04+) and are JOBS: without `-j` midclt
+  exits 0 with a job id even when the job then fails (the tool reported a refused reboot as success
+  until 2026-10-26). `-j` would block until the host dies, so `startPowerJob()` reads the job state after 3 s.
 - This server complements (not replaces) the API-based `truenas-mcp-server`

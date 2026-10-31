@@ -6,7 +6,7 @@ This server provides tools for managing TrueNAS SCALE via the `midclt` CLI, whic
 
 ### System
 - Get system information
-- Reboot or shutdown the system (requires confirmation)
+- Reboot or shutdown the system (requires confirmation and a `reason`, which the middleware records)
 
 ### Pools
 - List all storage pools

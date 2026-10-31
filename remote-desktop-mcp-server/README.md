@@ -59,6 +59,15 @@ real values. Shape:
 }
 ```
 
+## Shell use without the MCP server
+
+`cli.py HOST STEP...` runs the same actions over one connection from a shell, for sessions where the server
+is not loaded: `shot:PATH`, `click:X,Y[,right|double]`, `move:X,Y`, `type:TEXT`, `key:CHORD`, `sleep:S`
+(coordinates in the screenshot's downscaled space). Example:
+`.venv/bin/python cli.py officepc key:win-r sleep:2 type:powershell key:ctrl-shift-enter`.
+On a slow link (4K over Wi-Fi) screenshots can trail the input by tens of seconds; raise `VNC_REFRESH_WAIT`.
+`mcp` is pinned below 2: 2.x renamed `FastMCP`, which this server imports.
+
 ## Two gotchas (handled here)
 
 1. **Black first frame.** VNC captures the framebuffer before the server sends a full update →
